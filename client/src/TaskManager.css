@@ -1,0 +1,111 @@
+.task-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #007bff, #6610f2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.task-input-box {
+  background-color: #f8f9fa;
+}
+
+.search-bar input {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.task-card {
+  transition: transform 0.2s ease;
+}
+
+.task-card:hover {
+  transform: scale(1.01);
+}
+
+.completed-task {
+  background-color: #e9f7ef;
+}
+
+.task-manager-bg {
+  background: linear-gradient(to right, #373b44, #4286f4);
+  min-height: 100vh;
+}
+
+.custom-card {
+  border-radius: 1rem;
+  background-color: #ffffffdd;
+}
+
+.custom-list {
+  background-color: #2e3b4e;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 12px;
+  color: #f1f1f1; /* Light text color */
+}
+
+.custom-list strong {
+  color: #ffffff; /* Title text */
+}
+
+/* ✅ Fix for description being overridden by Bootstrap's .text-muted */
+.custom-list small,
+.custom-list .text-muted {
+  color: #dddddd !important;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s ease-in;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Darker Search Icon */
+.search-icon svg {
+  color: #111 !important;
+  font-size: 18px;
+}
+
+/* Edit/Delete Button Base */
+.edit-icon,
+.delete-icon {
+  background-color: transparent !important;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+/* Edit/Delete Icon Colors */
+.edit-icon svg,
+.delete-icon svg {
+  color: #212529 !important;
+  font-size: 18px;
+}
+
+/* Hover Icon Colors */
+.edit-icon:hover svg {
+  color: #0d6efd !important;
+}
+
+.delete-icon:hover svg {
+  color: #dc3545 !important;
+}
