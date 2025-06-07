@@ -1,30 +1,57 @@
-🗂️ Task Manager Web Application
-An intuitive and responsive Task Management System built with the MERN Stack (MongoDB, Express.js, React, Node.js) and Dockerized for seamless deployment. This full-stack web app allows users to create, manage, and track their tasks efficiently, with a modern UI, real-time feedback, and persistent storage.
-🔗 Live Demo & Walkthrough
-🌐 Deployed Site: https://your-deployment-url.com
-🎥 YouTube Demo Video: https://youtube.com/your-demo-video
-📌 Features
-•	✅ Add, edit, delete tasks
-•	✅ Set task status: To Do, In Progress, or Done
-•	✅ Mark tasks as complete with a checkbox
-•	✅ Search tasks instantly by title or description
-•	✅ Animated UI with interactive icons and feedback
-•	✅ Fully responsive and mobile-friendly
-•	✅ Toast notifications for all operations
-•	✅ Dockerized frontend and backend for smooth deployment
-🛠️ Tech Stack
-⚙️ Frontend
-•	React (Vite)
-•	React Icons
-•	React Toastify
-•	Bootstrap + Custom CSS
-🧠 Backend
-•	Node.js + Express
-•	MongoDB (via Mongoose)
-🐳 DevOps
-•	Docker: Separate containers for client and server
-•	Postman: For testing APIs
-•	GitHub: Version control
+# 🗂️ Task Manager Web Application
+
+An intuitive and responsive **Task Management System** built with the **MERN Stack** (MongoDB, Express.js, React, Node.js) and **Dockerized** for seamless deployment.
+
+This full-stack web app allows users to create, manage, and track their tasks efficiently, with a modern UI, real-time feedback, and persistent storage.
+
+---
+
+## 🔗 Live Demo & Walkthrough
+
+- 🌐 **Deployed Site**: [https://your-deployment-url.com](https://your-deployment-url.com)
+- 🎥 **YouTube Demo Video**: [https://youtube.com/your-demo-video](https://youtube.com/your-demo-video)
+
+---
+
+## 📌 Features
+
+- ✅ Add, edit, delete tasks
+- ✅ Set task status: *To Do*, *In Progress*, or *Done*
+- ✅ Mark tasks as complete with a checkbox
+- ✅ **Instant search** by title or description
+- ✅ **Animated UI** with interactive icons and feedback
+- ✅ Fully **responsive** and mobile-friendly
+- ✅ **Toast notifications** for all operations
+- ✅ **Dockerized frontend and backend** for smooth deployment
+
+---
+
+## 🛠️ Tech Stack
+
+### ⚙️ Frontend
+- ⚛️ React (with Vite)
+- 🎨 React Icons
+- 📢 React Toastify
+- 🧩 Bootstrap + Custom CSS
+
+### 🧠 Backend
+- 🔗 Node.js + Express
+- 🗄️ MongoDB (via Mongoose)
+
+### 🐳 DevOps
+- 🐳 Docker: Separate containers for client and server
+- 🔍 Postman: API testing
+- 🛠️ GitHub: Version control
+
+---
+
+## 📂 Folder Structure
+
+
+
+
+
+
 📂 Folder Structure
 
 root/
