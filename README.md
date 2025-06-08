@@ -51,7 +51,9 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 - ✅ Mark tasks as complete with a checkbox
 - ✅ **Instant search** by title or description
 - ✅ **Animated UI** with interactive icons and feedback
+- ✅ You get Motivating quotes if your task is in progress
 - ✅ Fully **responsive** and mobile-friendly
+  
   
 ## Mobile view
 <img src="https://github.com/user-attachments/assets/ed680992-cc3f-4ec7-89bb-2ff77f50d97f" width="300"/>
