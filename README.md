@@ -8,7 +8,7 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 
 ## 🔗 Live Demo & Walkthrough
 
-- 🌐 **Deployed Site**: [https://your-deployment-url.com](https://your-deployment-url.com)
+- 🌐 **Deployed Site**: [https://your-deployment-url.com]([https://your-deployment-url.com](https://task-qpop.vercel.app/))
 - 🎥 **YouTube Demo Video**: [https://youtube.com/your-demo-video](https://youtube.com/your-demo-video)
 
 ---
