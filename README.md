@@ -32,6 +32,35 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 
 ---
 
+## 🛡️ Error Handling Strategy
+
+Network errors, API failures, and unexpected input scenarios are handled gracefully to enhance user experience and maintain app stability.
+
+### ✅ How It Works
+
+- **Try-Catch Blocks:** All API calls are wrapped in `try...catch` to prevent crashes due to server or network issues.
+- **Toast Notifications:** `react-toastify` displays clear and user-friendly error messages  
+  _Example: "Failed to fetch tasks. Please try again."_
+- **Loading & Disabled States:** Buttons and input fields are temporarily disabled during API calls to prevent duplicate submissions.
+- **Fallback UI:** If data fetch fails (e.g., due to server downtime), fallback messages are shown instead of broken UI elements.
+
+### 🧪 Example (React)
+
+```js
+const fetchTasks = async () => {
+  try {
+    const response = await fetch(`${API_URL}/tasks`);
+    if (!response.ok) {
+      throw new Error('Server error');
+    }
+    const data = await response.json();
+    setTasks(data);
+  } catch (error) {
+    toast.error("Failed to fetch tasks. Please check your connection.");
+  }
+};
+
+
 ![image](https://github.com/user-attachments/assets/87e44147-f58a-49fd-b33c-d858003b4abd)
 
 
