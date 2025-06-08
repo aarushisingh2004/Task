@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaPlus, FaEdit, FaTrash, FaSearch, FaThumbtack } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSearch, FaThumbtack, FaSyncAlt } from 'react-icons/fa';
 import './TaskManager.css';
 
 const TaskManager = () => {
@@ -14,15 +14,27 @@ const TaskManager = () => {
   const API_URL = 'http://localhost:8080/tasks';
 
   useEffect(() => {
-    fetchTasks();
+    loadTasksWithCache();
   }, []);
 
-  const fetchTasks = async () => {
+  // Load tasks from cache or API
+  const loadTasksWithCache = async () => {
+    const cachedTasks = localStorage.getItem('tasks');
+    if (cachedTasks) {
+      setTasks(JSON.parse(cachedTasks));
+    } else {
+      await fetchTasksAndCache();
+    }
+  };
+
+  // Fetch tasks from server and cache them
+  const fetchTasksAndCache = async () => {
     try {
       const res = await fetch(API_URL);
       const data = await res.json();
       if (data.success) {
         setTasks(data.data);
+        localStorage.setItem('tasks', JSON.stringify(data.data));
       }
     } catch {
       toast.error('Failed to fetch tasks');
@@ -51,7 +63,8 @@ const TaskManager = () => {
         toast.success(editingTaskId ? 'Task updated' : 'Task added');
         setTask({ title: '', description: '', status: 'todo' });
         setEditingTaskId(null);
-        fetchTasks();
+        // Update tasks list and cache
+        fetchTasksAndCache();
       } else {
         toast.error(data.message);
       }
@@ -72,8 +85,9 @@ const TaskManager = () => {
         })
       });
       const data = await res.json();
-      if (data.success) fetchTasks();
-      else toast.error(data.message);
+      if (data.success) {
+        fetchTasksAndCache();
+      } else toast.error(data.message);
     } catch {
       toast.error('Failed to update task');
     }
@@ -94,7 +108,7 @@ const TaskManager = () => {
           setEditingTaskId(null);
           setTask({ title: '', description: '', status: 'todo' });
         }
-        fetchTasks();
+        fetchTasksAndCache();
       } else {
         toast.error(data.message);
       }
@@ -117,6 +131,13 @@ const TaskManager = () => {
     }
     setPinnedIds(updatedPins);
     localStorage.setItem('pinned', JSON.stringify(updatedPins));
+  };
+
+  // Manual refresh button to clear cache and fetch fresh data
+  const handleRefreshCache = () => {
+    localStorage.removeItem('tasks');
+    fetchTasksAndCache();
+    toast.info('Cache refreshed');
   };
 
   const filteredTasks = tasks
@@ -164,6 +185,14 @@ const TaskManager = () => {
             onClick={handleAddOrUpdateTask}
           >
             <FaPlus /> {editingTaskId ? 'Update Task' : 'Add Task'}
+          </button>
+          {/* Refresh Cache Button */}
+          <button
+            className="btn btn-secondary mt-3 w-100 d-flex justify-content-center align-items-center gap-2"
+            onClick={handleRefreshCache}
+            title="Refresh tasks cache from server"
+          >
+            <FaSyncAlt /> Refresh Cache
           </button>
         </div>
 
