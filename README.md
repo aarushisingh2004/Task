@@ -57,6 +57,9 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 ### 🧠 Backend
 - 🔗 Node.js + Express
 - 🗄️ MongoDB (via Mongoose)
+  ## records can be seen in the db
+  ![image](https://github.com/user-attachments/assets/05dcfc70-2a97-4bbd-82a9-f78b2c0aadc4)
+
 
 ### 🐳 DevOps
 - 🐳 Docker: Separate containers for client and server
