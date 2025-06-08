@@ -4,13 +4,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaPlus, FaEdit, FaTrash, FaSearch, FaThumbtack, FaSyncAlt } from 'react-icons/fa';
 import './TaskManager.css';
 
+const motivationQuotes = [
+  "Keep pushing forward!",
+  "Progress is progress, no matter how small.",
+  "You're doing great—stay focused!",
+  "Every step counts. Keep going!",
+  "Your effort will pay off!"
+];
+
 const TaskManager = () => {
   const [task, setTask] = useState({ title: '', description: '', status: 'todo' });
   const [searchTerm, setSearchTerm] = useState('');
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [pinnedIds, setPinnedIds] = useState(() => JSON.parse(localStorage.getItem('pinned')) || []);
-
   const API_URL = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
@@ -42,23 +49,33 @@ const TaskManager = () => {
   const handleAddOrUpdateTask = async () => {
     if (!task.title.trim()) return toast.warning('Please enter a task title');
 
-    const requestOptions = {
-      method: editingTaskId ? 'PUT' : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...task,
-        id: editingTaskId ? undefined : Date.now(),
-        isDone: false
-      })
+    const isNew = !editingTaskId;
+    const url = isNew ? API_URL : `${API_URL}/${editingTaskId}`;
+    const method = isNew ? 'POST' : 'PUT';
+
+    const requestBody = {
+      ...task,
+      id: isNew ? Date.now() : undefined,
+      isDone: task.status === 'done'
     };
 
-    const url = editingTaskId ? `${API_URL}/${editingTaskId}` : API_URL;
-
     try {
-      const res = await fetch(url, requestOptions);
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
+
       const data = await res.json();
       if (data.success) {
-        toast.success(editingTaskId ? 'Task updated' : 'Task added');
+        toast.success(isNew ? 'Task added' : 'Task updated');
+
+        // ✅ Show motivational quote if status is "in progress"
+        if (task.status === 'in progress') {
+          const randomQuote = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+          toast.info(randomQuote, { autoClose: 3000 });
+        }
+
         setTask({ title: '', description: '', status: 'todo' });
         setEditingTaskId(null);
         fetchTasksAndCache();
@@ -71,18 +88,28 @@ const TaskManager = () => {
   };
 
   const handleToggleDone = async (task) => {
+    const updatedStatus = task.status === 'todo' ? 'in progress'
+                        : task.status === 'in progress' ? 'done'
+                        : 'todo';
+
     try {
       const res = await fetch(`${API_URL}/${task._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...task,
-          isDone: !task.isDone,
-          status: !task.isDone ? 'done' : 'todo'
+          isDone: updatedStatus === 'done',
+          status: updatedStatus
         })
       });
+
       const data = await res.json();
       if (data.success) {
+        // ✅ Show motivation toast if going to "in progress"
+        if (updatedStatus === 'in progress') {
+          const randomQuote = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+          toast.info(randomQuote, { autoClose: 3000 });
+        }
         fetchTasksAndCache();
       } else toast.error(data.message);
     } catch {
@@ -96,7 +123,7 @@ const TaskManager = () => {
       const data = await res.json();
       if (data.success) {
         toast.success('Task deleted');
-        setPinnedIds((prev) => {
+        setPinnedIds(prev => {
           const updated = prev.filter(id => id !== taskId);
           localStorage.setItem('pinned', JSON.stringify(updated));
           return updated;
@@ -147,6 +174,11 @@ const TaskManager = () => {
       return bPinned - aPinned;
     });
 
+  const cachedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  const completedTasks = tasks.filter(t => t.status === 'done').length;
+  const inProgressTasks = tasks.filter(t => t.status === 'in progress').length;
+  const todoTasks = tasks.filter(t => t.status === 'todo').length;
+
   return (
     <div className="task-manager-bg py-4">
       <div className="d-flex flex-column align-items-center w-50 m-auto animate-fade-in">
@@ -191,6 +223,29 @@ const TaskManager = () => {
           </button>
         </div>
 
+        <div className="stats-container mt-4 w-100">
+          <div className="stat-box bg-primary text-white p-3 rounded text-center">
+            <h5>Total Tasks</h5>
+            <p className="fs-4">{tasks.length}</p>
+          </div>
+          <div className="stat-box bg-info text-dark p-3 rounded text-center">
+            <h5>Cached Tasks</h5>
+            <p className="fs-4">{cachedTasks.length}</p>
+          </div>
+          <div className="stat-box bg-success text-white p-3 rounded text-center">
+            <h5>Completed</h5>
+            <p className="fs-4">{completedTasks}</p>
+          </div>
+          <div className="stat-box bg-warning text-dark p-3 rounded text-center">
+            <h5>In Progress</h5>
+            <p className="fs-4">{inProgressTasks}</p>
+          </div>
+          <div className="stat-box bg-secondary text-white p-3 rounded text-center">
+            <h5>To Do</h5>
+            <p className="fs-4">{todoTasks}</p>
+          </div>
+        </div>
+
         <div className="input-group my-4 w-100 animate-slide-in">
           <span className="input-group-text search-icon"><FaSearch /></span>
           <input
@@ -218,10 +273,10 @@ const TaskManager = () => {
                       <input
                         type="checkbox"
                         className="form-check-input me-2"
-                        checked={task.isDone}
+                        checked={task.status === 'done'}
                         onChange={() => handleToggleDone(task)}
                       />
-                      <strong style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
+                      <strong style={{ textDecoration: task.status === 'done' ? 'line-through' : 'none' }}>
                         {task.title}
                       </strong>
                     </div>
