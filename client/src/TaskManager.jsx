@@ -11,13 +11,12 @@ const TaskManager = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [pinnedIds, setPinnedIds] = useState(() => JSON.parse(localStorage.getItem('pinned')) || []);
 
-  const API_URL = 'http://localhost:8080/tasks';
+  const API_URL = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
     loadTasksWithCache();
   }, []);
 
-  // Load tasks from cache or API
   const loadTasksWithCache = async () => {
     const cachedTasks = localStorage.getItem('tasks');
     if (cachedTasks) {
@@ -27,7 +26,6 @@ const TaskManager = () => {
     }
   };
 
-  // Fetch tasks from server and cache them
   const fetchTasksAndCache = async () => {
     try {
       const res = await fetch(API_URL);
@@ -63,7 +61,6 @@ const TaskManager = () => {
         toast.success(editingTaskId ? 'Task updated' : 'Task added');
         setTask({ title: '', description: '', status: 'todo' });
         setEditingTaskId(null);
-        // Update tasks list and cache
         fetchTasksAndCache();
       } else {
         toast.error(data.message);
@@ -133,7 +130,6 @@ const TaskManager = () => {
     localStorage.setItem('pinned', JSON.stringify(updatedPins));
   };
 
-  // Manual refresh button to clear cache and fetch fresh data
   const handleRefreshCache = () => {
     localStorage.removeItem('tasks');
     fetchTasksAndCache();
@@ -186,7 +182,6 @@ const TaskManager = () => {
           >
             <FaPlus /> {editingTaskId ? 'Update Task' : 'Add Task'}
           </button>
-          {/* Refresh Cache Button */}
           <button
             className="btn btn-secondary mt-3 w-100 d-flex justify-content-center align-items-center gap-2"
             onClick={handleRefreshCache}
