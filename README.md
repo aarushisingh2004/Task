@@ -67,16 +67,24 @@ root/
 
 
 
-🔍 How It Works
-- On visiting the app, the user is greeted with a clean task dashboard.
-- Tasks can be created using the form. Each task can have a title, description, and status.
+🔍 **How It Works**
+
+- On visiting the app, the user is greeted with a clean and responsive task dashboard.
+- Tasks can be created using the form. Each task consists of:
+  - Title (required)
+  - Description (optional)
+  - Status (To Do, In Progress, Done)
 - Users can:
-  - Toggle task completion (checkbox)
-  - Search across all tasks
-  - Edit or delete tasks
-- The backend APIs handle all operations securely and persist data in MongoDB.
-- The app provides feedback via toasts and animations for smoother UX.
-🚀 Getting Started Locally
+  - Add new tasks or update existing ones.
+  - Toggle task completion status via checkboxes, which updates the status and shows a line-through effect on completed tasks.
+  - Search tasks by title or description using a live search bar.
+  - Edit or delete tasks with dedicated buttons.
+  - Pin/unpin tasks to prioritize them; pinned tasks always appear at the top and this pin state is saved in `localStorage` for persistence.
+  - Refresh the task cache manually to fetch fresh data from the server and clear stale cached tasks.
+- Tasks and pinned task IDs are cached locally in the browser using `localStorage` to improve performance and reduce unnecessary server requests.
+- All CRUD operations (Create, Read, Update, Delete) are managed via RESTful backend APIs built with Node.js and Express, persisting data in MongoDB.
+- The UI provides instant feedback through animated transitions and toast notifications for actions like task addition, update, deletion, and cache refresh.
+- Error handling is implemented with user-friendly toast alerts in case of server or network failures.
 
 # How Task2 was implemented
 
