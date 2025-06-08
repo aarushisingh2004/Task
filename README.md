@@ -73,6 +73,43 @@ root/
 - The backend APIs handle all operations securely and persist data in MongoDB.
 - The app provides feedback via toasts and animations for smoother UX.
 🚀 Getting Started Locally
+
+##How Task2 was implemented
+
+## Caching Implementation for Tasks
+
+This Task Manager app uses **localStorage caching** to improve performance by reducing unnecessary API calls and enabling faster data load.
+
+### How Caching Works
+
+- On app start, the app checks if tasks are cached in `localStorage` under the key `tasks`.
+  - If cached data exists, it loads tasks directly from localStorage to display immediately.
+  - If not, it fetches tasks from the backend API and caches the result in localStorage for future use.
+  
+- Whenever a task is added, updated, or deleted, the app fetches fresh tasks from the backend and updates both the UI and the local cache.
+
+- A **Refresh Cache** button allows the user to manually clear cached data and reload fresh tasks from the server.
+
+### Benefits
+
+- **Faster loading:** Users see tasks instantly from local cache without waiting for network response.
+- **Reduced API calls:** Limits unnecessary requests to the backend.
+- **Data synchronization:** Keeps local cache updated after each change.
+- **User control:** Manual cache refresh option.
+
+### Technical Details
+
+- Tasks are stored in localStorage as JSON string under the key `tasks`.
+- Pinned task IDs are stored separately in localStorage under the key `pinned`.
+- React state hooks (`useState`) manage the cached data in the app.
+- Key functions:
+  - `loadTasksWithCache()`: Loads tasks from cache or API.
+  - `fetchTasksAndCache()`: Fetches fresh tasks and updates cache.
+- Includes error handling and user notifications for fetch failures.
+
+
+
+
 ### Prerequisites
 - Docker & Docker Compose installed
 ### Steps
