@@ -59,7 +59,7 @@ const fetchTasks = async () => {
     toast.error("Failed to fetch tasks. Please check your connection.");
   }
 };
-
+```
 
 ![image](https://github.com/user-attachments/assets/87e44147-f58a-49fd-b33c-d858003b4abd)
 
