@@ -122,6 +122,83 @@ This Task Manager app uses **localStorage caching** to improve performance by re
 
 
 
+# Task 3: Vector Search for Similar Tasks (MongoDB)
+
+## Feature Overview:
+Implemented semantic search in the Task Manager using vector embeddings. This allows users to find tasks with similar meanings — not just keyword matches. For example, searching "buy groceries" can return tasks like "get milk" or "purchase eggs".
+
+## What is Vector Search?
+Vector search uses machine learning embeddings to represent text as numerical vectors. By comparing these vectors (e.g., using cosine similarity), we can identify tasks with similar content even if the words are different.
+
+## MongoDB Schema Changes
+Each task document in MongoDB now includes:
+
+```json
+{
+  "title": "Buy groceries",
+  "description": "Get milk, eggs, and bread",
+  "embedding": [0.12, -0.34, ..., 0.56]  // 384-dimensional vector
+}
+```
+`embedding`: A list of floats generated from the task's description using the Sentence Transformers model.
+
+## How Embeddings Are Generated
+We use the `all-MiniLM-L6-v2` model from Sentence Transformers to generate vector embeddings.
+
+### Python Example:
+```python
+from sentence_transformers import SentenceTransformer
+import pymongo
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+desc = "Get milk, eggs, and bread"
+embedding = model.encode(desc).tolist()
+
+task = {
+    "title": "Buy groceries",
+    "description": desc,
+    "embedding": embedding
+}
+
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["taskDB"]
+db.tasks.insert_one(task)
+```
+
+## How Vector Search Works
+When a user enters a search query:
+
+1. Convert the query into a vector embedding.
+2. Fetch all tasks and their embeddings from MongoDB.
+3. Use cosine similarity to compare the query vector with each task's vector.
+4. Return the top 3 most similar tasks.
+
+### Python Search Example:
+```python
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
+query = "shopping"
+query_embedding = model.encode(query).reshape(1, -1)
+
+tasks = list(db.tasks.find({}))
+task_embeddings = [task["embedding"] for task in tasks]
+titles = [task["title"] for task in tasks]
+
+similarities = cosine_similarity(query_embedding, task_embeddings)[0]
+top_indices = np.argsort(similarities)[-3:][::-1]
+
+for idx in top_indices:
+    print(f"Task: {titles[idx]}, Similarity: {similarities[idx]:.2f}")
+```
+
+## Key Outcomes
+* Semantic vector embeddings stored in MongoDB.
+* Vector-based similarity search implemented using cosine similarity.
+* Returns top 3 related tasks based on meaning.
+* Improves UX with smarter task discovery.
+
+
 ### Prerequisites
 - Docker & Docker Compose installed
 ### Steps
