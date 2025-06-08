@@ -6,6 +6,9 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 
 ---
 
+![image](https://github.com/user-attachments/assets/87e44147-f58a-49fd-b33c-d858003b4abd)
+
+
 ## 🔗 Live Demo & Walkthrough
 
 - 🌐 **Deployed Site**: [https://task-qpop.vercel.app](https://task-qpop.vercel.app)
@@ -16,6 +19,9 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 
 ## 📌 Features
 
+![image](https://github.com/user-attachments/assets/a92a3b0f-742f-492a-ac67-fa4c9b4e2e3f)
+
+
 - ✅ Add, edit, delete tasks
 - ✅Pin the important tasks
 - ✅ Set task status: *To Do*, *In Progress*, or *Done*
@@ -25,8 +31,12 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 - ✅ Fully **responsive** and mobile-friendly
 - ✅ **Toast notifications** for all operations
 - ✅ **Dockerized frontend and backend** for smooth deployment
+  
 
 ---
+
+![image](https://github.com/user-attachments/assets/3970d14c-7215-4be0-99a5-e7d3b2dc954e)
+
 
 ## 🛠️ Tech Stack
 
@@ -76,6 +86,8 @@ root/
   - Title (required)
   - Description (optional)
   - Status (To Do, In Progress, Done)
+    ![image](https://github.com/user-attachments/assets/4fa84797-702d-4e80-babe-cc08f134729a)
+
     
 - Users can:
   - Add new tasks or update existing ones.
@@ -87,6 +99,12 @@ root/
   - Date of addition and updation of task is also visible.
   - User can easily view the number of task, the status wise count of task, how many are completed and how many are still to be done or in progress.
 - Tasks and pinned task IDs are cached locally in the browser using `localStorage` to improve performance and reduce unnecessary server requests.
+
+  ## pinned task
+![image](https://github.com/user-attachments/assets/db24d3f0-8272-4e60-a217-a2c8f9dbc06f)
+
+
+  
 - All CRUD operations (Create, Read, Update, Delete) are managed via RESTful backend APIs built with Node.js and Express, persisting data in MongoDB.
 - The UI provides instant feedback through animated transitions and toast notifications for actions like task addition, update, deletion, and cache refresh.
 - Error handling is implemented with user-friendly toast alerts in case of server or network failures.
