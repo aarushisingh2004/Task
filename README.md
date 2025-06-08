@@ -78,7 +78,7 @@ root/
 - The app provides feedback via toasts and animations for smoother UX.
 🚀 Getting Started Locally
 
-##How Task2 was implemented
+# How Task2 was implemented
 
 ## Caching Implementation for Tasks
 
