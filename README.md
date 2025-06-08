@@ -130,6 +130,28 @@ This Task Manager app uses **localStorage caching** to improve performance by re
 git clone https://github.com/your-username/task-manager-app.git
 cd task-manager-app
 
+## 🚀 Getting Started Locally
+
+Follow these steps to run the Task Manager app on your local machine:
+
+### 🧰 Prerequisites
+
+- **Node.js** (v14 or above)
+- **npm** (comes with Node.js)
+- **MongoDB** (locally or via [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+
+---
+
+### 📁 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+
+
+
 # Start containers
 docker-compose up --build
 
