@@ -157,11 +157,14 @@ This Task Manager app uses **localStorage caching** to improve performance by re
 #### Got right results on searching
 
 
-• Integrated semantic search using sentence-transformers and MongoDB vector indexing.
-• Generated task description embeddings using a Python microservice (MiniLM).
-• Stored vectors in MongoDB and created a vector index using $vectorSearch.
-• Built /vector-search route to return tasks with similar meanings.
-• Added search bar in frontend to find related tasks like “study React” ↔ “revise JS.”
+## 🧠 Vector Search Feature
+
+- ✅ Integrated semantic search using `sentence-transformers` and MongoDB vector indexing.
+- 🧠 Generated task description embeddings using a Python microservice (`MiniLM` model).
+- 💾 Stored vectors in MongoDB and created a vector index using `$vectorSearch`.
+- 🔍 Built a `/vector-search` route to return tasks with similar meanings.
+- 🔎 Added a search bar in the frontend to find related tasks (e.g., **"study React"** ↔ **"revise JS"**).
+
 
 ## Feature Overview:
 Implemented semantic search in the Task Manager using vector embeddings. This allows users to find tasks with similar meanings — not just keyword matches. For example, searching "buy groceries" can return tasks like "get milk" or "purchase eggs".
