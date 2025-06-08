@@ -49,7 +49,7 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 root/
 ├── client/ # React Frontend (Vite)
 │ ├── src/
-│ │ └── TaskManager.jsx
+│ │ ├── TaskManager.jsx
 │ │ └── TaskManager.css
 │ └── index.html
 ├── server/ # Node.js + Express Backend
@@ -60,7 +60,7 @@ root/
 │ └── Controllers/
 │ └── TaskController.js
 ├── Dockerfile
-├── docker-compose.yml
+└── docker-compose.yml
 
 
 🔍 How It Works
