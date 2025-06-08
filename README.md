@@ -65,6 +65,9 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 - 🐳 Docker: Separate containers for client and server
 - 🔍 Postman: API testing
 - 🛠️ GitHub: Version control
+  ## Testing of Put method in postman
+  ![image](https://github.com/user-attachments/assets/0ca2a3bd-c764-4184-a915-33d85f8de814)
+
 
 ---
 
@@ -135,6 +138,10 @@ This Task Manager app uses **localStorage caching** to improve performance by re
 - Whenever a task is added, updated, or deleted, the app fetches fresh tasks from the backend and updates both the UI and the local cache.
 
 - A **Refresh Cache** button allows the user to manually clear cached data and reload fresh tasks from the server.
+
+  ## Cached Data visible in the local storage
+  ![image](https://github.com/user-attachments/assets/20c94fc5-f798-4fbb-8995-4c72c5fd7767)
+
 
 ### Benefits
 
