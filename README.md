@@ -275,6 +275,64 @@ Follow these steps to run the Task Manager app on your local machine:
 - **npm** (comes with Node.js)
 - **MongoDB** (locally or via [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 
+  ## Dependencies
+  Markdown
+
+# 📁 README.md — Dependencies Section
+
+## 🧩 Dependencies
+
+### 📦 Backend (Node.js + Express + MongoDB)
+
+To install backend dependencies:
+
+```bash
+cd server
+npm install
+```
+## 🧰 Backend Dependencies
+
+| Package        | Purpose                                                                 |
+|----------------|-------------------------------------------------------------------------|
+| `express`      | Web framework for building the REST API                                 |
+| `mongoose`     | ODM (Object Data Modeling) library for MongoDB, used for schema modeling |
+| `cors`         | Enables Cross-Origin Resource Sharing to allow frontend-backend communication |
+| `dotenv`       | Loads environment variables from a `.env` file                          |
+| `body-parser`  | Parses incoming request bodies in middleware                            |
+| `nodemon` (dev)| Automatically restarts the server on file changes during development    |
+
+```
+npm install express mongoose cors dotenv body-parser
+npm install --save-dev nodemon
+```
+## 🌐 Frontend (React + Vite)
+To install frontend dependencies:
+
+```
+cd client
+npm install
+```
+
+## 🎨 Frontend Dependencies
+
+| Package          | Purpose                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| `react`          | Core React library                                                      |
+| `react-dom`      | DOM-specific methods for React                                          |
+| `react-icons`    | Icon library for popular icon sets (used for buttons like edit/delete)  |
+| `react-toastify` | Notification/toast system for feedback messages                         |
+| `bootstrap`      | Responsive design and styling framework                                 |
+| `vite`           | Fast frontend tooling to bundle and serve React apps                    |
+
+```
+npm install react react-dom react-icons react-toastify bootstrap
+```
+
+⚙️ If Vite is not already set up, initialize with:
+```
+npm create vite@latest client -- --template react
+```
+
 ---
 
 ### 📁 1. Clone the Repository
