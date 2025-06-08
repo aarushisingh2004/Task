@@ -4,14 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaPlus, FaEdit, FaTrash, FaSearch, FaThumbtack, FaSyncAlt } from 'react-icons/fa';
 import './TaskManager.css';
 
-const motivationQuotes = [
-  "Keep pushing forward!",
-  "Progress is progress, no matter how small.",
-  "You're doing great—stay focused!",
-  "Every step counts. Keep going!",
-  "Your effort will pay off!"
-];
-
 const TaskManager = () => {
   const [task, setTask] = useState({ title: '', description: '', status: 'todo' });
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,36 +38,40 @@ const TaskManager = () => {
     }
   };
 
+  const motivationalQuotes = [
+    "Keep pushing forward!",
+    "You're doing amazing!",
+    "Stay focused, stay strong.",
+    "Believe in yourself!",
+    "Progress is power 💪",
+  ];
+
   const handleAddOrUpdateTask = async () => {
     if (!task.title.trim()) return toast.warning('Please enter a task title');
 
-    const isNew = !editingTaskId;
-    const url = isNew ? API_URL : `${API_URL}/${editingTaskId}`;
-    const method = isNew ? 'POST' : 'PUT';
+    const now = new Date().toISOString();
 
-    const requestBody = {
+    const newTask = {
       ...task,
-      id: isNew ? Date.now() : undefined,
-      isDone: task.status === 'done'
+      id: editingTaskId ? undefined : Date.now(),
+      isDone: false,
+      updatedAt: now,
+      createdAt: editingTaskId ? undefined : now
     };
 
-    try {
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      });
+    const requestOptions = {
+      method: editingTaskId ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newTask)
+    };
 
+    const url = editingTaskId ? `${API_URL}/${editingTaskId}` : API_URL;
+
+    try {
+      const res = await fetch(url, requestOptions);
       const data = await res.json();
       if (data.success) {
-        toast.success(isNew ? 'Task added' : 'Task updated');
-
-        // ✅ Show motivational quote if status is "in progress"
-        if (task.status === 'in progress') {
-          const randomQuote = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-          toast.info(randomQuote, { autoClose: 3000 });
-        }
-
+        toast.success(editingTaskId ? 'Task updated' : 'Task added');
         setTask({ title: '', description: '', status: 'todo' });
         setEditingTaskId(null);
         fetchTasksAndCache();
@@ -88,28 +84,19 @@ const TaskManager = () => {
   };
 
   const handleToggleDone = async (task) => {
-    const updatedStatus = task.status === 'todo' ? 'in progress'
-                        : task.status === 'in progress' ? 'done'
-                        : 'todo';
-
     try {
       const res = await fetch(`${API_URL}/${task._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...task,
-          isDone: updatedStatus === 'done',
-          status: updatedStatus
+          isDone: !task.isDone,
+          status: !task.isDone ? 'done' : 'todo',
+          updatedAt: new Date().toISOString()
         })
       });
-
       const data = await res.json();
       if (data.success) {
-        // ✅ Show motivation toast if going to "in progress"
-        if (updatedStatus === 'in progress') {
-          const randomQuote = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-          toast.info(randomQuote, { autoClose: 3000 });
-        }
         fetchTasksAndCache();
       } else toast.error(data.message);
     } catch {
@@ -123,7 +110,7 @@ const TaskManager = () => {
       const data = await res.json();
       if (data.success) {
         toast.success('Task deleted');
-        setPinnedIds(prev => {
+        setPinnedIds((prev) => {
           const updated = prev.filter(id => id !== taskId);
           localStorage.setItem('pinned', JSON.stringify(updated));
           return updated;
@@ -161,6 +148,15 @@ const TaskManager = () => {
     localStorage.removeItem('tasks');
     fetchTasksAndCache();
     toast.info('Cache refreshed');
+  };
+
+  const handleStatusChange = (e) => {
+    const selectedStatus = e.target.value;
+    setTask(prev => ({ ...prev, status: selectedStatus }));
+    if (selectedStatus === 'in progress') {
+      const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+      toast.info(randomQuote);
+    }
   };
 
   const filteredTasks = tasks
@@ -202,7 +198,7 @@ const TaskManager = () => {
           <select
             className="form-select mb-3"
             value={task.status}
-            onChange={(e) => setTask({ ...task, status: e.target.value })}
+            onChange={handleStatusChange}
           >
             <option value="todo">To Do</option>
             <option value="in progress">In Progress</option>
@@ -217,7 +213,6 @@ const TaskManager = () => {
           <button
             className="btn btn-secondary mt-3 w-100 d-flex justify-content-center align-items-center gap-2"
             onClick={handleRefreshCache}
-            title="Refresh tasks cache from server"
           >
             <FaSyncAlt /> Refresh Cache
           </button>
@@ -267,42 +262,36 @@ const TaskManager = () => {
           <ul className="w-75 m-auto">
             {filteredTasks.map(task => (
               <li key={task._id} className="custom-list animate-fade-in">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex flex-column align-items-start">
+                <div className="task-info-container">
+                  <div className="task-left">
                     <div className="d-flex align-items-center mb-1">
                       <input
                         type="checkbox"
                         className="form-check-input me-2"
-                        checked={task.status === 'done'}
+                        checked={task.isDone}
                         onChange={() => handleToggleDone(task)}
                       />
-                      <strong style={{ textDecoration: task.status === 'done' ? 'line-through' : 'none' }}>
+                      <strong style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
                         {task.title}
                       </strong>
                     </div>
-                    <small className="text-light">{task.description}</small>
+                    <small>{task.description}</small>
                   </div>
-                  <div className="text-end d-flex align-items-center gap-2">
-                    <span className={`badge ${task.status === 'done'
+                  <div className="task-meta">
+                    <div className={`badge mb-1 ${task.status === 'done'
                       ? 'bg-success'
                       : task.status === 'in progress'
                         ? 'bg-warning text-dark'
                         : 'bg-secondary'}`}>
                       {task.status}
-                    </span>
-                    <button
-                      className={`btn btn-sm btn-icon ${pinnedIds.includes(task._id) ? 'pinned' : ''}`}
-                      onClick={() => togglePin(task._id)}
-                      title="Pin"
-                    >
-                      <FaThumbtack />
-                    </button>
-                    <button className="btn btn-sm btn-icon edit-icon" onClick={() => handleEditTask(task)}>
-                      <FaEdit />
-                    </button>
-                    <button className="btn btn-sm btn-icon delete-icon" onClick={() => handleDeleteTask(task._id)}>
-                      <FaTrash />
-                    </button>
+                    </div>
+                    <div>Created: {new Date(task.createdAt).toLocaleString()}</div>
+                    <div>Updated: {new Date(task.updatedAt).toLocaleString()}</div>
+                    <div className="d-flex justify-content-end gap-2 mt-2">
+                      <button className={`btn btn-sm btn-icon ${pinnedIds.includes(task._id) ? 'pinned' : ''}`} onClick={() => togglePin(task._id)}><FaThumbtack /></button>
+                      <button className="btn btn-sm btn-icon edit-icon" onClick={() => handleEditTask(task)}><FaEdit /></button>
+                      <button className="btn btn-sm btn-icon delete-icon" onClick={() => handleDeleteTask(task._id)}><FaTrash /></button>
+                    </div>
                   </div>
                 </div>
               </li>
