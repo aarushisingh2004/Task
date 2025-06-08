@@ -142,11 +142,17 @@ This Task Manager app uses **localStorage caching** to improve performance by re
   - `fetchTasksAndCache()`: Fetches fresh tasks and updates cache.
 - Includes error handling and user notifications for fetch failures.
 
+  ![image](https://github.com/user-attachments/assets/2a891422-0208-48b2-a83d-59eae3442988)
+
+
 
 
 
 # Task 3: Vector Search for Similar Tasks (MongoDB)
 
+![image](https://github.com/user-attachments/assets/f70133fe-33b8-4c29-ad8e-d37fa48495c2)
+
+#### Got right results on searching
 
 
 • Integrated semantic search using sentence-transformers and MongoDB vector indexing.
