@@ -1,5 +1,10 @@
 # 🗂️ Task Manager Web Application
 
+## 🔗 Live Demo & Walkthrough
+
+- 🌐 **Deployed Site**: [https://task-qpop.vercel.app](https://task-qpop.vercel.app)
+- 🎥 **YouTube Demo Video**: [https://youtu.be/2f9vHzY3rHg](https://youtu.be/2f9vHzY3rHg)
+
 An intuitive and responsive **Task Management System** built with the **MERN Stack** (MongoDB, Express.js, React, Node.js) and **Dockerized** for seamless deployment.
 
 This full-stack web app allows users to create, manage, and track their tasks efficiently, with a modern UI, real-time feedback, and persistent storage.
@@ -9,10 +14,7 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 ![image](https://github.com/user-attachments/assets/87e44147-f58a-49fd-b33c-d858003b4abd)
 
 
-## 🔗 Live Demo & Walkthrough
 
-- 🌐 **Deployed Site**: [https://task-qpop.vercel.app](https://task-qpop.vercel.app)
-- 🎥 **YouTube Demo Video**: [https://youtu.be/2f9vHzY3rHg](https://youtu.be/2f9vHzY3rHg)
 
 
 ---
