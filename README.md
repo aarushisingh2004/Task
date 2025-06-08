@@ -74,6 +74,7 @@ root/
   - Title (required)
   - Description (optional)
   - Status (To Do, In Progress, Done)
+    
 - Users can:
   - Add new tasks or update existing ones.
   - Toggle task completion status via checkboxes, which updates the status and shows a line-through effect on completed tasks.
@@ -81,6 +82,8 @@ root/
   - Edit or delete tasks with dedicated buttons.
   - Pin/unpin tasks to prioritize them; pinned tasks always appear at the top and this pin state is saved in `localStorage` for persistence.
   - Refresh the task cache manually to fetch fresh data from the server and clear stale cached tasks.
+  - Date of addition and updation of task is also visible.
+  - User can easily view the number of task, the status wise count of task, how many are completed and how many are still to be done or in progress.
 - Tasks and pinned task IDs are cached locally in the browser using `localStorage` to improve performance and reduce unnecessary server requests.
 - All CRUD operations (Create, Read, Update, Delete) are managed via RESTful backend APIs built with Node.js and Express, persisting data in MongoDB.
 - The UI provides instant feedback through animated transitions and toast notifications for actions like task addition, update, deletion, and cache refresh.
@@ -123,6 +126,14 @@ This Task Manager app uses **localStorage caching** to improve performance by re
 
 
 # Task 3: Vector Search for Similar Tasks (MongoDB)
+
+
+
+• Integrated semantic search using sentence-transformers and MongoDB vector indexing.
+• Generated task description embeddings using a Python microservice (MiniLM).
+• Stored vectors in MongoDB and created a vector index using $vectorSearch.
+• Built /vector-search route to return tasks with similar meanings.
+• Added search bar in frontend to find related tasks like “study React” ↔ “revise JS.”
 
 ## Feature Overview:
 Implemented semantic search in the Task Manager using vector embeddings. This allows users to find tasks with similar meanings — not just keyword matches. For example, searching "buy groceries" can return tasks like "get milk" or "purchase eggs".
@@ -285,7 +296,7 @@ Hi! I'm Aarushi, a passionate full-stack developer and tech enthusiast.
 🔹 Reliance Foundation Scholar | Python instructor at Cybeorg
 🔹 I love building real-world apps with a clean UI and solid backend
 
-📬 Connect on LinkedIn: https://linkedin.com/in/your-profile
+📬 Connect on LinkedIn: https://www.linkedin.com/in/aarushi-singh-b00553253/
 
 ⭐ Feedback & Contributions
 If you like this project, consider giving it a ⭐. For suggestions or collaborations, feel free to raise an issue or PR!
