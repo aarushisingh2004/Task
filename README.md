@@ -9,6 +9,27 @@ An intuitive and responsive **Task Management System** built with the **MERN Sta
 
 This full-stack web app allows users to create, manage, and track their tasks efficiently, with a modern UI, real-time feedback, and persistent storage.
 
+## 🧠 Approach & Architecture
+
+- **Frontend:** Developed using React with Vite for fast bundling and Bootstrap for responsive UI. Toast notifications are integrated using `react-toastify`.
+- **Backend:** Built using Express.js and MongoDB, with Mongoose for schema modeling and API endpoints for CRUD operations.
+- **Data Flow:** React fetches task data from the API and stores it in local state. Backend handles storage in MongoDB. UI updates are instantaneous with real-time feedback.
+- **Deployment:** Frontend hosted using Vercel, backend on Render.
+
+---
+
+## ⚙️ Design Decisions
+
+| Area                | Decision Made                                                                 |
+|---------------------|-------------------------------------------------------------------------------|
+| **Stack**           | Chose MERN stack for its wide support, flexibility, and real-time capabilities |
+| **Styling**         | Used Bootstrap to ensure responsive layout and rapid development              |
+| **State Handling**  | Used `useState` and `useEffect` for simplicity and performance                |
+| **Toast Feedback**  | Selected `react-toastify` for its ease of use and customization               |
+| **Database**        | MongoDB chosen for document-oriented storage, fast integration with Mongoose  |
+| **Hosting**         | Render (backend) + Vercel (frontend) for quick, free, and scalable deployment |
+
+
 ---
 
 ![image](https://github.com/user-attachments/assets/87e44147-f58a-49fd-b33c-d858003b4abd)
