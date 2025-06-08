@@ -1,12 +1,108 @@
-# React + Vite
+# 🗂️ Task Manager Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An intuitive and responsive **Task Management System** built with the **MERN Stack** (MongoDB, Express.js, React, Node.js) and **Dockerized** for seamless deployment.
 
-Currently, two official plugins are available:
+This full-stack web app allows users to create, manage, and track their tasks efficiently, with a modern UI, real-time feedback, and persistent storage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔗 Live Demo & Walkthrough
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🌐 **Deployed Site**: [https://your-deployment-url.com](https://your-deployment-url.com)
+- 🎥 **YouTube Demo Video**: [https://youtube.com/your-demo-video](https://youtube.com/your-demo-video)
+
+---
+
+## 📌 Features
+
+- ✅ Add, edit, delete tasks
+- ✅ Set task status: *To Do*, *In Progress*, or *Done*
+- ✅ Mark tasks as complete with a checkbox
+- ✅ **Instant search** by title or description
+- ✅ **Animated UI** with interactive icons and feedback
+- ✅ Fully **responsive** and mobile-friendly
+- ✅ **Toast notifications** for all operations
+- ✅ **Dockerized frontend and backend** for smooth deployment
+
+---
+
+## 🛠️ Tech Stack
+
+### ⚙️ Frontend
+- ⚛️ React (with Vite)
+- 🎨 React Icons
+- 📢 React Toastify
+- 🧩 Bootstrap + Custom CSS
+
+### 🧠 Backend
+- 🔗 Node.js + Express
+- 🗄️ MongoDB (via Mongoose)
+
+### 🐳 DevOps
+- 🐳 Docker: Separate containers for client and server
+- 🔍 Postman: API testing
+- 🛠️ GitHub: Version control
+
+---
+
+## 📂 Folder Structure
+root/
+├── client/ # React Frontend (Vite)
+│ ├── src/
+│ │ └── TaskManager.jsx
+│ │ └── TaskManager.css
+│ └── index.html
+├── server/ # Node.js + Express Backend
+│ ├── Models/
+│ │ └── TaskModel.js
+│ ├── Routes/
+│ │ └── TaskRoutes.js
+│ └── Controllers/
+│ └── TaskController.js
+├── Dockerfile
+├── docker-compose.yml
+
+
+🔍 How It Works
+- On visiting the app, the user is greeted with a clean task dashboard.
+- Tasks can be created using the form. Each task can have a title, description, and status.
+- Users can:
+  - Toggle task completion (checkbox)
+  - Search across all tasks
+  - Edit or delete tasks
+- The backend APIs handle all operations securely and persist data in MongoDB.
+- The app provides feedback via toasts and animations for smoother UX.
+🚀 Getting Started Locally
+### Prerequisites
+- Docker & Docker Compose installed
+### Steps
+
+# Clone the repo
+git clone https://github.com/your-username/task-manager-app.git
+cd task-manager-app
+
+# Start containers
+docker-compose up --build
+
+🌐 Visit the app at: http://localhost:5173
+🔌 API runs at: http://localhost:8080
+📦 API Overview
+
+| Method | Endpoint            | Description          |
+|--------|---------------------|----------------------|
+| GET    | /tasks              | Get all tasks        |
+| POST   | /tasks              | Add new task         |
+| PUT    | /tasks/:id          | Update a task        |
+| DELETE | /tasks/:id          | Delete a task        |
+
+🙋‍♀️ About Me
+
+Hi! I'm Aarushi, a passionate full-stack developer and tech enthusiast.
+🔹 I'm currently a 3rd-year ECE with Artificial Intelligence student at IGDTUW
+🔹 Reliance Foundation Scholar | Python instructor at Cybeorg
+🔹 I love building real-world apps with a clean UI and solid backend
+
+📬 Connect on LinkedIn: https://linkedin.com/in/your-profile
+
+⭐ Feedback & Contributions
+If you like this project, consider giving it a ⭐. For suggestions or collaborations, feel free to raise an issue or PR!
