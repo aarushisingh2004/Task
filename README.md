@@ -149,11 +149,46 @@ git clone https://github.com/your-username/your-repo.git
 cd your-repo
 ```
 
+### 🖥️ 2. Start the Backend Server
+
+```
+cd server
+npm install
+npm start
+
+```
+#### Make sure mongoDb is running before this.
+
+### Start the Frontend (React) Client
+Open a new terminal:
+
+```
+cd client
+npm install
+npm run dev
+```
+
+
+
+This will start the frontend on http://localhost:5173
+
+
 
 
 
 # Start containers
+
+If you want to run the full stack app with Docker:
+```
 docker-compose up --build
+```
+
+## 🧪 Test the App
+
+- Visit [http://localhost:5173](http://localhost:5173) in your browser.
+- Create, update, delete, and pin tasks.
+- Use the **Refresh Cache** button to clear local cache and fetch fresh data.
+
 
 🌐 Visit the app at: http://localhost:5173
 🔌 API runs at: http://localhost:8080
