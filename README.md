@@ -31,6 +31,10 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 - ✅ **Instant search** by title or description
 - ✅ **Animated UI** with interactive icons and feedback
 - ✅ Fully **responsive** and mobile-friendly
+  
+## Mobile view
+  ![WhatsApp Image 2025-06-09 at 00 10 50_868930be](https://github.com/user-attachments/assets/ff2cb131-96e6-44fd-9442-bae554520364)
+
 - ✅ **Toast notifications** for all operations
 - ✅ **Dockerized frontend and backend** for smooth deployment
   
