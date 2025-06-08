@@ -16,6 +16,7 @@ This full-stack web app allows users to create, manage, and track their tasks ef
 ## 📌 Features
 
 - ✅ Add, edit, delete tasks
+- ✅Pin the important tasks
 - ✅ Set task status: *To Do*, *In Progress*, or *Done*
 - ✅ Mark tasks as complete with a checkbox
 - ✅ **Instant search** by title or description
