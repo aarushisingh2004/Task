@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSearch, FaThumbtack } from 'react-icons/fa';
 import './TaskManager.css';
 
 const TaskManager = () => {
@@ -9,6 +9,7 @@ const TaskManager = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const [pinnedIds, setPinnedIds] = useState(() => JSON.parse(localStorage.getItem('pinned')) || []);
 
   const API_URL = 'http://localhost:8080/tasks';
 
@@ -23,7 +24,7 @@ const TaskManager = () => {
       if (data.success) {
         setTasks(data.data);
       }
-    } catch (err) {
+    } catch {
       toast.error('Failed to fetch tasks');
     }
   };
@@ -54,7 +55,7 @@ const TaskManager = () => {
       } else {
         toast.error(data.message);
       }
-    } catch (err) {
+    } catch {
       toast.error('Error saving task');
     }
   };
@@ -71,29 +72,33 @@ const TaskManager = () => {
         })
       });
       const data = await res.json();
-      if (data.success) {
-        fetchTasks();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (err) {
+      if (data.success) fetchTasks();
+      else toast.error(data.message);
+    } catch {
       toast.error('Failed to update task');
     }
   };
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const res = await fetch(`${API_URL}/${taskId}`, {
-        method: 'DELETE'
-      });
+      const res = await fetch(`${API_URL}/${taskId}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         toast.success('Task deleted');
+        setPinnedIds((prev) => {
+          const updated = prev.filter(id => id !== taskId);
+          localStorage.setItem('pinned', JSON.stringify(updated));
+          return updated;
+        });
+        if (editingTaskId === taskId) {
+          setEditingTaskId(null);
+          setTask({ title: '', description: '', status: 'todo' });
+        }
         fetchTasks();
       } else {
         toast.error(data.message);
       }
-    } catch (err) {
+    } catch {
       toast.error('Failed to delete task');
     }
   };
@@ -103,10 +108,27 @@ const TaskManager = () => {
     setEditingTaskId(task._id);
   };
 
-  const filteredTasks = tasks.filter(t =>
-    t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    t.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const togglePin = (taskId) => {
+    let updatedPins;
+    if (pinnedIds.includes(taskId)) {
+      updatedPins = pinnedIds.filter(id => id !== taskId);
+    } else {
+      updatedPins = [...pinnedIds, taskId];
+    }
+    setPinnedIds(updatedPins);
+    localStorage.setItem('pinned', JSON.stringify(updatedPins));
+  };
+
+  const filteredTasks = tasks
+    .filter(t =>
+      t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aPinned = pinnedIds.includes(a._id);
+      const bPinned = pinnedIds.includes(b._id);
+      return bPinned - aPinned;
+    });
 
   return (
     <div className="task-manager-bg py-4">
@@ -189,6 +211,13 @@ const TaskManager = () => {
                         : 'bg-secondary'}`}>
                       {task.status}
                     </span>
+                    <button
+                      className={`btn btn-sm btn-icon ${pinnedIds.includes(task._id) ? 'pinned' : ''}`}
+                      onClick={() => togglePin(task._id)}
+                      title="Pin"
+                    >
+                      <FaThumbtack />
+                    </button>
                     <button className="btn btn-sm btn-icon edit-icon" onClick={() => handleEditTask(task)}>
                       <FaEdit />
                     </button>
@@ -202,6 +231,10 @@ const TaskManager = () => {
           </ul>
         )}
       </div>
+
+      <footer className="app-footer text-center text-white py-3">
+        &copy; {new Date().getFullYear()} Aarushi's Task Manager. All rights reserved.
+      </footer>
     </div>
   );
 };

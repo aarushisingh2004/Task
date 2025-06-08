@@ -1,3 +1,14 @@
+/* ✅ Background and Layout */
+.task-manager-bg {
+  background: linear-gradient(to right, #373b44, #4286f4);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 60px; /* Space for footer */
+}
+
+/* ✅ Container Styling */
 .task-container {
   max-width: 700px;
   margin: 0 auto;
@@ -5,6 +16,7 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* ✅ Gradient Text */
 .gradient-text {
   background: linear-gradient(90deg, #007bff, #6610f2);
   -webkit-background-clip: text;
@@ -12,15 +24,23 @@
   font-weight: 700;
 }
 
+/* ✅ Input Box */
 .task-input-box {
   background-color: #f8f9fa;
 }
 
+/* ✅ Search Bar Styling */
 .search-bar input {
   border-radius: 8px;
   padding: 10px;
 }
 
+.search-icon svg {
+  color: #000000 !important; /* Black icon */
+  font-size: 18px;
+}
+
+/* ✅ Card Hover Animation */
 .task-card {
   transition: transform 0.2s ease;
 }
@@ -29,38 +49,38 @@
   transform: scale(1.01);
 }
 
+/* ✅ Completed Task */
 .completed-task {
   background-color: #e9f7ef;
 }
 
-.task-manager-bg {
-  background: linear-gradient(to right, #373b44, #4286f4);
-  min-height: 100vh;
-}
-
+/* ✅ Card Styling */
 .custom-card {
   border-radius: 1rem;
   background-color: #ffffffdd;
 }
 
+/* ✅ Task List Styling */
 .custom-list {
   background-color: #2e3b4e;
+  border: 1px solid #ffffff;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 12px;
-  color: #f1f1f1; /* Light text color */
+  color: #f1f1f1;
+  list-style: none;
 }
 
 .custom-list strong {
-  color: #ffffff; /* Title text */
+  color: #ffffff;
 }
 
-/* ✅ Fix for description being overridden by Bootstrap's .text-muted */
 .custom-list small,
 .custom-list .text-muted {
   color: #dddddd !important;
 }
 
+/* ✅ Animations */
 .animate-fade-in {
   animation: fadeIn 1.2s ease-in;
 }
@@ -79,33 +99,53 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Darker Search Icon */
-.search-icon svg {
-  color: #111 !important;
-  font-size: 18px;
+/* ✅ Pinned Task Button */
+.pinned {
+  color: #ffc107;
 }
 
-/* Edit/Delete Button Base */
+.pinned:hover {
+  background-color: rgba(255, 193, 7, 0.2);
+}
+
+/* ✅ Edit/Delete/Pin Button Base */
 .edit-icon,
-.delete-icon {
+.delete-icon,
+.btn-icon {
   background-color: transparent !important;
   border: none;
   padding: 6px 10px;
   border-radius: 5px;
 }
 
-/* Edit/Delete Icon Colors */
+/* ✅ Icon Colors */
 .edit-icon svg,
-.delete-icon svg {
-  color: #212529 !important;
+.delete-icon svg,
+.btn-icon svg {
+  color: #ffffff !important;
   font-size: 18px;
 }
 
-/* Hover Icon Colors */
+/* ✅ Icon Hover Effects */
 .edit-icon:hover svg {
   color: #0d6efd !important;
 }
 
 .delete-icon:hover svg {
   color: #dc3545 !important;
+}
+
+.btn-icon.pinned svg {
+  color: #ffc107 !important;
+}
+
+/* ✅ Footer */
+.app-footer {
+  background-color: #000000 !important;
+  color: #957d7dcc;
+  text-align: center;
+  padding: 12px 20px;
+  font-size: 14px;
+  margin-top: auto;
+  width: 100%;
 }
